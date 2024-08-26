@@ -1,6 +1,5 @@
 ## ARL(Asset Reconnaissance Lighthouse)资产侦察灯塔系统
 [![Python 3.6](https://img.shields.io/badge/python-3.6-yellow.svg)](https://www.python.org/)
-[![Docker Images](https://img.shields.io/docker/pulls/tangxiaofeng7/arl.svg)](https://hub.docker.com/r/tophant/arl)
 [![Github Issues](https://img.shields.io/github/issues/tangxiaofeng7/ARL.svg)](https://github.com/tangxiaofeng7/ARL/issues)
 [![Github Stars](https://img.shields.io/github/stars/tangxiaofeng7/ARL.svg)](https://github.com/tangxiaofeng7/ARL/stargazers)
 
