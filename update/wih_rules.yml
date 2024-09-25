@@ -7,7 +7,7 @@ rules:
     enabled: false
   # 路径，内置规则
   - id: path
-    enabled: false
+    enabled: true
   # URL主机部分为域名，内置规则
   - id: domain_url
     enabled: false
@@ -16,7 +16,7 @@ rules:
     enabled: false
   # 邮箱
   - id: email
-    enabled: false
+    enabled: true
     pattern: \b[A-Za-z0-9._\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,61}\b
   # 二代身份证
   - id: id_card
@@ -24,7 +24,7 @@ rules:
     pattern: \b([1-9]\d{5}(19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx])\b
   # 手机号
   - id: phone
-    enabled: false
+    enabled: true
     pattern: \b1[3-9]\d{9}\b
   # jwt token (不要修改ID)
   - id: jwt_token
@@ -136,7 +136,16 @@ rules:
   - id: app_key
     enabled: true
     pattern: \b(?:VUE|APP|REACT)_[A-Z_0-9]{1,15}_(?:KEY|PASS|PASSWORD|TOKEN|APIKEY)['"]*[:=]"(?:[A-Za-z0-9_\-]{15,50}|[a-z0-9/+]{50,100}==?)"
-
+  - id: app_key
+    enabled: true
+    pattern: \b鉴权失败\b
+  - id: api
+    enabled: true
+    pattern: \api\b
+  - id: download
+    enabled: true
+    pattern: \bdownload\b
+    
 # 排除规则， 支持字段 id, content, target , source 逻辑为 and ，如果是正则匹配，需要使用 regex: 开头
 exclude_rules:
     # 排除站点 https://cc.163.com 中 类型为 secret_key 的内容
@@ -149,7 +158,7 @@ exclude_rules:
     id: bearer_token
     target: https://open.work.weixin.qq.com
     content: regex:Bearer\s+
-    enabled: true
+    enabled: false
 
   - name: "过滤来自首页的内容"
     source_tag: page
