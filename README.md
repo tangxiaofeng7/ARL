@@ -7,12 +7,14 @@
 
 ### 简介
 
-旨在快速侦察与目标关联的互联网资产，构建基础资产信息库。
-协助甲方安全团队或者渗透测试人员有效侦察和检索资产，发现存在的薄弱点和攻击面。
+优化域名爆破大字典-8W+
+优化更新指纹
+优化文件泄露检测
 
-在开始使用之前，请务必阅读并同意[免责声明](Disclaimer.md)中的条款，否则请勿下载安装使用本系统。
+### 部署
 
-### 部署：
+> 部署前可以先在update目录进行自定义设置
+
 ```
 docker volume create arl_db
 docker-compose pull
@@ -25,30 +27,10 @@ docker-compose up -d
 
 ### 配置参数说明
 
-Docker环境配置文件路径 `docker/config-docker.yaml`
-
-|       配置        |                 说明                 |
-| ----------------- | ------------------------------------ |
-| CELERY.BROKER_URL | rabbitmq连接信息                      |
-| MONGO             | mongo 连接信息                        |
-| QUERY_PLUGIN      | 域名查询插件数据源Token 配置             |
-| GEOIP             | GEOIP 数据库路径信息                  |
-| FOFA              | FOFA API 配置信息                     |
-| DINGDING          | 钉钉消息推送配置                     |
-| EMAIL              | 邮箱发送配置                     |
-| GITHUB.TOKEN      |  GITHUB 搜索 TOKEN                 |
-| ARL.AUTH          | 是否开启认证，不开启有安全风险          |
-| ARL.API_KEY       | arl后端API调用key，如果设置了请注意保密 |
-| ARL.BLACK_IPS     | 为了防止SSRF，屏蔽的IP地址或者IP段      |
-| ARL.PORT_TOP_10     | 自定义端口，对应前端端口测试选项      |
-| ARL.DOMAIN_DICT     | 域名爆破字典，对应前端大字典选项      |
-| ARL.FILE_LEAK_DICT     | 文件泄漏字典      |
-| ARL.DOMAIN_BRUTE_CONCURRENT     | 域名爆破并发数配置      |
-| ARL.ALT_DNS_CONCURRENT     | 组合生成的域名爆破并发数      |
-| PROXY.HTTP_URL     | HTTP代理URL设置      |
-| FEISHU | 飞书消息推送配置 |
-| WXWORK | 企业微信消息推送 |
-
+Docker环境配置文件路径 `update/config-docker.yaml`
+wih配置配置文件路径 `update/wih_rules.yml`
+域名爆破大字典路径 `update/domain_2w.txt`
+文件泄露字典路径 `update/file_top_2000.txt`
 
 ### 忘记密码重置
 
@@ -61,4 +43,4 @@ db.user.insert({ username: 'admin',  password: hex_md5('arlsalt!@#'+'admin123') 
 ```
 ### 写在最后
 
-本项目镜像同步上传至阿里云，方便国内玩家快速部署，免受翻墙困扰
+本项目镜像同步上传至阿里云，方便国内玩家快速部署

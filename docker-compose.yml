@@ -16,8 +16,12 @@ services:
           #- "5003:80"
           - "5003:443"
         volumes:
-          - ./config-docker.yaml:/code/app/config.yaml
-          - ./poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./update/config-docker.yaml:/code/app/config.yaml
+          - ./update/poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./update/wih_rules.yml:/code/app/dicts/wih_rules.yml
+          - ./update/domain_2w.txt:/code/app/dicts/domain_2w.txt
+          - ./update/file_top_2000.txt:/code/app/dicts/file_top_2000.txt
+          - ./update/fileLeak.py:/code/app/app/services/fileLeak.py
         entrypoint: ["sh", "-c", "gen_crt.sh; nginx; wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672; gunicorn -b 0.0.0.0:5003 app.main:arl_app -w 3 --access-logfile arl_web.log"]
         environment:
           - LANG=en_US.UTF-8
@@ -31,8 +35,12 @@ services:
           - mongodb
           - rabbitmq
         volumes:
-          - ./config-docker.yaml:/code/app/config.yaml
-          - ./poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./update/config-docker.yaml:/code/app/config.yaml
+          - ./update/poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./update/wih_rules.yml:/code/app/dicts/wih_rules.yml
+          - ./update/domain_2w.txt:/code/app/dicts/domain_2w.txt
+          - ./update/file_top_2000.txt:/code/app/dicts/file_top_2000.txt
+          - ./update/fileLeak.py:/code/app/app/services/fileLeak.py
         entrypoint: ["sh", "-c", "wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672;
         celery -A app.celerytask.celery worker -l info -Q arlgithub -n arlgithub -c 2 -O fair -f arl_worker.log &
          celery -A app.celerytask.celery worker -l info -Q arltask -n arltask -c 2 -O fair -f arl_worker.log"]
@@ -42,18 +50,23 @@ services:
           - TZ=Asia/Shanghai
 
     scheduler:
-      image: registry.cn-hangzhou.aliyuncs.com/txf7/arl:2.6.2
-      container_name: arl_scheduler
-      restart: unless-stopped
-      depends_on:
-        - mongodb
-        - rabbitmq
-      volumes:
-        - ./config-docker.yaml:/code/app/config.yaml
-      entrypoint: [ "sh", "-c", "wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672; python3.6 -m app.scheduler" ]
-      environment:
-        - LANG=en_US.UTF-8
-        - TZ=Asia/Shanghai
+        image: registry.cn-hangzhou.aliyuncs.com/txf7/arl:2.6.2
+        container_name: arl_scheduler
+        restart: unless-stopped
+        depends_on:
+          - mongodb
+          - rabbitmq
+        volumes:
+          - ./update/config-docker.yaml:/code/app/config.yaml
+          - ./update/poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./update/wih_rules.yml:/code/app/dicts/wih_rules.yml
+          - ./update/domain_2w.txt:/code/app/dicts/domain_2w.txt
+          - ./update/file_top_2000.txt:/code/app/dicts/file_top_2000.txt
+          - ./update/fileLeak.py:/code/app/app/services/fileLeak.py
+        entrypoint: [ "sh", "-c", "wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672; python3.6 -m app.scheduler" ]
+        environment:
+          - LANG=en_US.UTF-8
+          - TZ=Asia/Shanghai
 
     mongodb:
         image: registry.cn-hangzhou.aliyuncs.com/txf7/arl-mongo:2.6.2
@@ -69,15 +82,15 @@ services:
 
 
     rabbitmq:
-      image: registry.cn-hangzhou.aliyuncs.com/txf7/arl-rabbitmq:2.6.2
-      container_name: arl_rabbitmq
-      restart: always
-      environment:
-        - RABBITMQ_DEFAULT_PASS=arlpassword
-        - RABBITMQ_DEFAULT_USER=arl
-        - RABBITMQ_DEFAULT_VHOST=arlv2host
-      logging:
-        driver: "json-file"
-        options:
-          max-size: "1M"
-          max-file: "10"
+        image: registry.cn-hangzhou.aliyuncs.com/txf7/arl-rabbitmq:2.6.2
+        container_name: arl_rabbitmq
+        restart: always
+        environment:
+          - RABBITMQ_DEFAULT_PASS=arlpassword
+          - RABBITMQ_DEFAULT_USER=arl
+          - RABBITMQ_DEFAULT_VHOST=arlv2host
+        logging:
+          driver: "json-file"
+          options:
+            max-size: "1M"
+            max-file: "10"
