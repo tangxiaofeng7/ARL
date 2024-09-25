@@ -3,13 +3,12 @@
 [![Github Issues](https://img.shields.io/github/issues/tangxiaofeng7/ARL.svg)](https://github.com/tangxiaofeng7/ARL/issues)
 [![Github Stars](https://img.shields.io/github/stars/tangxiaofeng7/ARL.svg)](https://github.com/tangxiaofeng7/ARL/stargazers)
 
-资产灯塔，不仅仅是域名收集
-
 ### 简介
 
 域名爆破字典8W+</p>
 优化指纹(去重+去除误报) 共计7649条Web指纹</p>
 优化文件泄露检测逻辑</p>
+
 
 ### 部署
 
@@ -27,10 +26,10 @@ docker-compose up -d
 
 ### 配置参数说明
 
-Docker环境配置文件路径 `update/config-docker.yaml`
-wih配置配置文件路径 `update/wih_rules.yml`
-域名爆破大字典路径 `update/domain_2w.txt`
-文件泄露字典路径 `update/file_top_2000.txt`
+Docker环境配置文件路径 `update/config-docker.yaml`</p>
+wih配置配置文件路径 `update/wih_rules.yml`</p>
+域名爆破大字典路径 `update/domain_2w.txt`</p>
+文件泄露字典路径 `update/file_top_2000.txt`</p>
 
 ### 忘记密码重置
 
